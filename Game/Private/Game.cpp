@@ -52,16 +52,14 @@ void MyGame::Initialize( exEngineInterface* pEngine )
 	mEngine = pEngine;
 
 
-	mFontID = mEngine->LoadFont( "Resources/afternight.ttf", 32 );
-
-
+	mFontID = mEngine->LoadFont( "Resources/Jacquard24-Regular.ttf", 32 );
 
 	mStateMachine = std::make_shared<StateMachine<Actor>>();
 	mStateMachine->AddState("Gameplay", std::make_shared<Gameplay>());
 	mStateMachine->AddState("MainMenu", std::make_shared<MainMenu>());
 	mStateMachine->AddState("EndGame", std::make_shared<EndGame>());
 
-	mStateMachine->SetState("EndGame", nullptr);
+	mStateMachine->SetState("MainMenu", nullptr);
 }
 
 //-----------------------------------------------------------------
