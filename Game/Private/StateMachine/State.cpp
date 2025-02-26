@@ -7,22 +7,48 @@
 
 void MainMenu::Enter(std::shared_ptr<Actor> DependencyObject)
 {
+	// Title
+	TitleText = std::make_shared<Actor>();
+	TitleText->AddComponentOfType<TransformComponent>(exVector2(250.0f, 100.0f));
+	TitleText->AddComponentOfType<TextRenderComponent>("This is Brick Breaker", exColor({ 255, 255, 255, 255 }));
+
+	// Play Button
 	PlayButton = std::make_shared<Actor>();
-	PlayButton->AddComponentOfType<TransformComponent>(exVector2(500.0f, 500.0f));
-	PlayButton->AddComponentOfType<BoxRenderComponent>(125.0f, 50.0f);	
-	
-	QuitButton = std::make_shared<Actor>();
-	QuitButton->AddComponentOfType<TransformComponent>(exVector2(500.0f, 750.0f));
-	QuitButton->AddComponentOfType<BoxRenderComponent>(125.0f, 50.0f);
-	//TODO: add text to buttons
+	// Button Position
+	exVector2 playButtonPos(500.0f, 500.0f);
+	PlayButton->AddComponentOfType<TransformComponent>(playButtonPos);
+	// Box Component
+	float boxWidth = 500.0f;
+	float boxHeight = 100.0f;
+	PlayButton->AddComponentOfType<BoxRenderComponent>(boxWidth, boxHeight);
+	// Centered Text Position (Offset inside the box)
+	exVector2 textOffset(-boxWidth / 4, -boxHeight / 4);
+	PlayButton->AddComponentOfType<TextRenderComponent>("Press Enter to Play", exColor({ 255, 255, 255, 255 }), textOffset);
+
+
+	// Quit Button
+	//QuitButton = std::make_shared<Actor>();
+	//QuitButton->AddComponentOfType<TransformComponent>(exVector2(500.0f, 600.0f));
+	//QuitButton->AddComponentOfType<BoxRenderComponent>(125.0f, 50.0f);
+	//QuitButton->AddComponentOfType<TextRenderComponent>("Press Esc to Quit", exColor({ 255, 255, 255, 255 }));
 }
+
+
 
 void MainMenu::Update(std::shared_ptr<Actor> DependencyObject)
 {
+
 }
+
+void MainMenu::HandleEnterKey()
+{
+	SetNextState("Gameplay"); // Switch to gameplay when Enter is pressed
+}
+
 
 void MainMenu::Exit(std::shared_ptr<Actor> DependencyObject)
 {
+	TitleText.reset();
 	PlayButton.reset();
 	QuitButton.reset();
 
@@ -95,16 +121,50 @@ void Gameplay::Exit(std::shared_ptr<Actor> DependencyObject)
 
 void EndGame::Enter(std::shared_ptr<Actor> DependencyObject)
 {
-	RetryButton = std::make_shared<Actor>();
-	RetryButton->AddComponentOfType<TransformComponent>(exVector2(500.0f, 500.0f));
-	RetryButton->AddComponentOfType<BoxRenderComponent>(125.0f, 50.0f);
+	// Title
+	TitleText = std::make_shared<Actor>();
+	TitleText->AddComponentOfType<TransformComponent>(exVector2(250.0f, 100.0f));
+	TitleText->AddComponentOfType<TextRenderComponent>("Would You like to Try Again?", exColor({ 255, 255, 255, 255 }));
+
+	// Play Button
+	PlayButton = std::make_shared<Actor>();
+	// Button Position
+	exVector2 playButtonPos(500.0f, 500.0f);
+	PlayButton->AddComponentOfType<TransformComponent>(playButtonPos);
+	// Box Component
+	float boxWidth = 500.0f;
+	float boxHeight = 100.0f;
+	PlayButton->AddComponentOfType<BoxRenderComponent>(boxWidth, boxHeight);
+	// Centered Text Position (Offset inside the box)
+	exVector2 textOffset(-boxWidth / 4, -boxHeight / 4);
+	PlayButton->AddComponentOfType<TextRenderComponent>("Press Enter to Start Over", exColor({ 255, 255, 255, 255 }), textOffset);
+
+
+	// Quit Button
+	//QuitButton = std::make_shared<Actor>();
+	//QuitButton->AddComponentOfType<TransformComponent>(exVector2(500.0f, 600.0f));
+	//QuitButton->AddComponentOfType<BoxRenderComponent>(125.0f, 50.0f);
+	//QuitButton->AddComponentOfType<TextRenderComponent>("Press Esc to Quit", exColor({ 255, 255, 255, 255 }));
 }
+
+
 
 void EndGame::Update(std::shared_ptr<Actor> DependencyObject)
 {
+
 }
+
+void EndGame::HandleEnterKey()
+{
+	SetNextState("MainMenu"); // Switch to gameplay when Enter is pressed
+}
+
 
 void EndGame::Exit(std::shared_ptr<Actor> DependencyObject)
 {
-	RetryButton.reset();
+	TitleText.reset();
+	PlayButton.reset();
+	QuitButton.reset();
+
 }
+

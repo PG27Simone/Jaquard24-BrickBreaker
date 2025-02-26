@@ -8,6 +8,7 @@
 #include "Game/Public/Components/CircleColliderComponent.h"
 #include "Game/Public/Components/BoxRenderComponent.h"
 #include "Game/Public/Components/BoxColliderComponent.h"
+#include "Game/Public/Components/TextRenderComponent.h"
 
 
 

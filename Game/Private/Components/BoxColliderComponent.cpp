@@ -117,3 +117,20 @@ bool BoxColliderComponent::IsCollisionDetectedWithCircle(std::weak_ptr<CircleCol
 
 	return false;
 }
+
+bool BoxColliderComponent::IsPointInside(int x, int y) const
+{
+	if (auto owner = mOwner.lock())
+	{
+		auto transform = owner->FindComponentOfType<TransformComponent>();
+		if (transform)
+		{
+			exVector2 pos = transform->GetLocation();
+			float width = mWidth;
+			float height = mHeight;
+
+			return (x >= pos.x && x <= pos.x + width && y >= pos.y && y <= pos.y + height);
+		}
+	}
+	return false;
+}

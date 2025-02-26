@@ -62,8 +62,13 @@ public:
 	
 	void Exit(std::shared_ptr<Actor> DependencyObject) override;
 
+	void HandleEnterKey();
+
+
+
 private:
 
+	std::shared_ptr<Actor> TitleText;
 	std::shared_ptr<Actor> PlayButton;
 	std::shared_ptr<Actor> QuitButton;
 
@@ -123,8 +128,12 @@ public:
 
 	void Exit(std::shared_ptr<Actor> DependencyObject) override;
 
+	void HandleEnterKey();
+
 private:
 
-	std::shared_ptr<Actor> RetryButton;
+	std::shared_ptr<Actor> TitleText;
+	std::shared_ptr<Actor> PlayButton;
+	std::shared_ptr<Actor> QuitButton;
 
 };

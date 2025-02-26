@@ -61,7 +61,7 @@ void MyGame::Initialize( exEngineInterface* pEngine )
 	mStateMachine->AddState("MainMenu", std::make_shared<MainMenu>());
 	mStateMachine->AddState("EndGame", std::make_shared<EndGame>());
 
-	mStateMachine->SetState("Gameplay", nullptr);
+	mStateMachine->SetState("EndGame", nullptr);
 }
 
 //-----------------------------------------------------------------
@@ -85,9 +85,37 @@ void MyGame::GetClearColor( exColor& color ) const
 //-----------------------------------------------------------------
 //-----------------------------------------------------------------
 
-void MyGame::OnEvent( SDL_Event* pEvent )
+void MyGame::OnEvent(SDL_Event* pEvent)
 {
+	if (pEvent->type == SDL_KEYDOWN)  // Detect key press
+	{
+		switch (pEvent->key.keysym.sym)
+		{
+		case SDLK_RETURN: // Enter key
+			if (mStateMachine)
+			{
+				// Allow Enter only in MainMenu and EndGame
+				std::shared_ptr<State<Actor>> currentState = mStateMachine->GetCurrentState();
+				if (std::dynamic_pointer_cast<MainMenu>(currentState) ||
+					std::dynamic_pointer_cast<EndGame>(currentState))
+				{
+					mStateMachine->SetState("Gameplay", nullptr);
+				}
+			}
+			break;
+
+		case SDLK_ESCAPE: // Escape key (always active)
+			exit(0); // Quit the game
+			break;
+
+		default:
+			break;
+		}
+	}
 }
+
+
+
 
 //-----------------------------------------------------------------
 //-----------------------------------------------------------------

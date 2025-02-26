@@ -10,6 +10,8 @@ friend class CircleColliderComponent;
 public:
 
 	BoxColliderComponent() = delete;
+	bool IsPointInside(int x, int y) const;
+
 
 protected:
 
